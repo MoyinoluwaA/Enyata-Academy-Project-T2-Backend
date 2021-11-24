@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("./db");
-const router = require("./routes/user");
+const userRouter = require("./routes/user");
 const { createUserTable } = require("./db/queries/user");
 const port = process.env.PORT || 5000;
 
@@ -17,7 +17,7 @@ app.get('/', () => {
 	})
 })
 
-app.use('/api/users', router)
+app.use('/api/users', userRouter)
 
 app.use((req, res) => {
 	res.status(404).json({

@@ -1,6 +1,7 @@
 module.exports = {
-  
-    // Creates the user table
+	/**
+	* @description Creates the user table
+	*/
 	createUserTable: `
 		DO $$
 		BEGIN
@@ -28,7 +29,10 @@ module.exports = {
 			updated_at TIMESTAMPTZ DEFAULT NOW()
 		);  
 	`,
-			
+	
+	/**
+	* @description Inserts data into the user table
+	*/
 	addUser: `
         INSERT INTO users(
             first_name,
@@ -40,7 +44,10 @@ module.exports = {
         VALUES ($1, $2, $3, $4, $5)
         RETURNING *
     `,
-
+	
+	/**
+	* @description Gets a user by id from user table
+	*/
 	getUser: `
         SELECT *
         FROM users
