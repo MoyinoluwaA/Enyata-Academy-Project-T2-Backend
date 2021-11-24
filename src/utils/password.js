@@ -1,5 +1,4 @@
 const bcrypt = require('bcryptjs')
 
-exports.hashPassword = async password => {
-    return await bcrypt.hash(password, 10)
-}
+// eslint-disable-next-line no-return-await
+exports.hashPassword = async (password) => await bcrypt.hash(password, 10)
