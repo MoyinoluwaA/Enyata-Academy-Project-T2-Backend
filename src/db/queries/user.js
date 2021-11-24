@@ -46,7 +46,7 @@ module.exports = {
     `,
 	
 	/**
-	* @description Gets a user by id from user table
+	* @description Gets a user by email from user table
 	*/
 	getUser: `
         SELECT *
