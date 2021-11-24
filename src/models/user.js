@@ -11,6 +11,15 @@ const createUserSchema = {
 	message: 'Error creating new user',
 }
 
+const loginUserSchema = {
+	schema: Joi.object().keys({
+		email: Joi.string().email().required(),
+		password: Joi.string().required(),
+	}),
+	message: 'Error logging in user',
+}
+
 module.exports = {
 	createUserSchema,
+	loginUserSchema,
 }

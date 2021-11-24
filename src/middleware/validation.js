@@ -1,4 +1,9 @@
 /* eslint-disable consistent-return */
+
+/**
+   * @description Used to validate req body, params, query and headers to
+   *  ensure the required fields are filled and are of the right data type
+   */
 const validateInput = (data, type) => async (req, res, next) => {
 	try {
 		const getType = {
