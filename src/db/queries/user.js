@@ -62,4 +62,28 @@ module.exports = {
         FROM users
         WHERE phone=$1
     `,
+
+	/**
+	 * @description seeds an admin user
+	 */
+	seedAdmin: `
+		INSERT INTO users(
+			first_name,
+			last_name,
+			email,
+			phone,
+			password,
+			role
+		)
+		VALUES ($1, $2, $3, $4, $5, 'admin')
+		RETURNING *
+	`,
+
+	/**
+	 * @description delete a user using their email
+	 */
+	deleteUser: `
+		DELETE FROM users
+		WHERE email=$1
+	`,
 }
