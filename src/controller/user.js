@@ -1,4 +1,4 @@
-const { createUser } = require('../services/user')
+const { createUser, validatePassword } = require('../services/user')
 
 const registerUser = async (req, res, next) => {
 	try {
@@ -17,6 +17,32 @@ const registerUser = async (req, res, next) => {
 	}
 }
 
+const loginUser = async (req, res, next) => {
+	try {
+		const { user, body: { password } } = req
+		const { token } = await validatePassword(user, password)
+
+		if (!token) {
+			res.status(401).json({
+				code: 401,
+				status: 'fail',
+				message: 'Invalid credentials',
+				data: 'Error logging in user',
+			})
+		} else {
+			res.status(200).json({
+				code: 200,
+				status: 'success',
+				message: 'User logged in successfully',
+				data: { role: user.role, token },
+			})
+		}
+	} catch (err) {
+		next(err)
+	}
+}
+
 module.exports = {
 	registerUser,
+	loginUser,
 }
