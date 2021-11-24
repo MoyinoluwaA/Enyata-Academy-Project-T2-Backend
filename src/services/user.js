@@ -2,7 +2,7 @@ const db = require('../db')
 const queries = require('../db/queries/user')
 const { hashPassword } = require('../utils/password')
 
-const createUser = async body => {
+exports.createUser = async body => {
     const { first_name, last_name, email, phone, password } = body
     const encryptedPassword = await hashPassword(password)
 
@@ -10,9 +10,5 @@ const createUser = async body => {
     return db.one(queries.addUser, payload)
 }
 
-const getUser = email => db.any(queries.getUser, email)
-
-module.exports = {
-    createUser,
-    getUser
-}
+exports.getUserByEmail = email => db.any(queries.getUserByEmail, email)
+exports.getUserByPhone = phone => db.any(queries.getUserByPhone, phone)
