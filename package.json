@@ -8,7 +8,9 @@
     "dev": "nodemon ./src/index.js",
     "test": "mocha test",
     "seed": "node -e 'require(\"./src/db/seeder/seed.js\").seedAdmin()'",
-    "undo:seed" : "node -e 'require(\"./src/db/seeder/seed.js\").undoSeed()'"
+    "undo:seed" : "node -e 'require(\"./src/db/seeder/seed.js\").undoSeed()'",
+    "window:seed" : "node -e require(\"'./src/db/seeder/seed.js'\").seedAdmin()",
+    "undo:window:seed" : "node -e require(\"'./src/db/seeder/seed.js'\").undoSeed()'"
   },
   "keywords": [],
   "author": "",
