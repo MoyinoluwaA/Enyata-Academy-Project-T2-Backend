@@ -1,3 +1,5 @@
+const platform = require('os').platform()
+
 module.exports = {
 	env: {
 		commonjs: true,
@@ -16,5 +18,6 @@ module.exports = {
 		semi: [2, 'never'],
 		'no-restricted-globals': 0,
 		'consistent-return': 0,
+		'linebreak-style': ['error', platform === 'linux' ? 'unix' : 'windows'],
 	},
 }

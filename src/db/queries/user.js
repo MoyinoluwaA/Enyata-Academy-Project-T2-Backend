@@ -29,7 +29,8 @@ module.exports = {
 				created_at TIMESTAMPTZ DEFAULT NOW(),
 				updated_at TIMESTAMPTZ DEFAULT NOW()
 			);  
-`,
+	`,
+
 	/**
    * @description Inserts data into the user table
    */
