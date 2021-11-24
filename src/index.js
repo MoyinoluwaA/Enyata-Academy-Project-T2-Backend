@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("./db");
-const router = require("./routes");
+const router = require("./routes/user");
 const { createUserTable } = require("./db/queries/user");
 const port = process.env.PORT || 5000;
 
@@ -17,7 +17,7 @@ app.get('/', () => {
 	})
 })
 
-app.use('/api', router)
+app.use('/api/users', router)
 
 app.use((req, res) => {
 	res.status(404).json({
@@ -31,7 +31,8 @@ app.use((err, req, res, next) => {
 	res.status(500).json({
 		code: 500,
 		status: 'failed',
-		message: 'Internal Server Error'
+		message: 'Internal Server Error',
+		error: err.message
 	})
 })
 

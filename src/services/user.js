@@ -1,6 +1,6 @@
 const db = require('../db')
 const queries = require('../db/queries/user')
-const { hashPassword } = require('../utils')
+const { hashPassword } = require('../utils/password')
 
 const createUser = async body => {
     const { first_name, last_name, email, phone, password } = body

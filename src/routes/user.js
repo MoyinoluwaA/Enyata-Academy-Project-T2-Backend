@@ -6,7 +6,7 @@ const { createUserSchema } = require('../models/user')
 const router = express.Router()
 
 router.post(
-    '/users/register', 
+    '/register', 
     validateInput(createUserSchema, 'body'),
     checkUserExists('register'),
     registerUser
