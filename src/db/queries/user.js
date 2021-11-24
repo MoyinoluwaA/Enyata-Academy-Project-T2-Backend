@@ -48,9 +48,18 @@ module.exports = {
 	/**
 	* @description Gets a user by email from user table
 	*/
-	getUser: `
+	getUserByEmail: `
         SELECT *
         FROM users
         WHERE email=$1
+    `,
+
+	/**
+	* @description Gets a user by phone from user table
+	*/
+	getUserByPhone: `
+        SELECT *
+        FROM users
+        WHERE phone=$1
     `,
 };
