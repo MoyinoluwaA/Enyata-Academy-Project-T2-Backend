@@ -87,4 +87,17 @@ module.exports = {
 		DELETE FROM users
 		WHERE email=$1
 	`,
+
+	/**
+	 * @description update a user password using their email
+	 * @param {string} email - the email of the user
+	 * @param {string} password - the new password
+	 * @returns {<promise>} user - the updated user
+	 */
+	updatePassword: `
+		UPDATE users
+		SET password=$1
+		WHERE email=$2
+		RETURNING *
+	`,
 }

@@ -1,4 +1,5 @@
 const { getUserByEmail, getUserByPhone } = require('../services/user')
+const { errorResponse } = require('../utils/errorResponse')
 
 /**
    * @description Ensure user that exists that tries to register receives
@@ -11,35 +12,20 @@ const checkUserExists = (type) => async (req, res, next) => {
 
 		if (type === 'register') {
 			if (user) {
-				return res.status(400).json({
-					code: 400,
-					status: 'failed',
-					message: 'User with this email already exists. Log in',
-					data: [],
-				})
+				return errorResponse(res, 'User with this email already exists. Log in', 400)
 			}
 
 			[user] = await getUserByPhone(phone)
 
 			if (user) {
-				return res.status(400).json({
-					code: 400,
-					status: 'failed',
-					message: 'User with this phone number already exists. Log in',
-					data: [],
-				})
+				return errorResponse(res, 'User with this phone number already exists. Log in', 400)
 			}
 
 			next()
 		} else {
 			// eslint-disable-next-line no-lonely-if
 			if (!user) {
-				return res.status(401).json({
-					code: 401,
-					status: 'failed',
-					message: 'Invalid credentials',
-					data: [],
-				})
+				return errorResponse(res, 'User with this email does not exist. Register', 404)
 			}
 
 			req.user = user
