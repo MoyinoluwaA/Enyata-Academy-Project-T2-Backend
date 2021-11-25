@@ -19,7 +19,31 @@ const loginUserSchema = {
 	message: 'Error logging in user',
 }
 
+const forgotPasswordSchema = {
+	schema: Joi.object().keys({
+		email: Joi.string().email().required(),
+	}),
+	message: 'Error resetting password',
+}
+
+const resetPasswordSchema = {
+	schema: Joi.object().keys({
+		password: Joi.string().required(),
+	}),
+	message: 'Error resetting password',
+}
+
+const resetTokenSchema = {
+	schema: Joi.object().keys({
+		resetToken: Joi.string().required(),
+	}),
+	message: 'Error resetting password',
+}
+
 module.exports = {
 	createUserSchema,
 	loginUserSchema,
+	forgotPasswordSchema,
+	resetPasswordSchema,
+	resetTokenSchema,
 }
