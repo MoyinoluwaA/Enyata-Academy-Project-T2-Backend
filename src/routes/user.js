@@ -1,11 +1,13 @@
 const express = require('express')
 const {
-	registerUser, loginUser, forgotPassword, resetPassword,
+	registerUser, loginUser, forgotPassword, resetPassword, getUserDetails,
 } = require('../controller/user')
 const checkUserExists = require('../middleware/checkUserExists')
 const checkUserRole = require('../middleware/checkUserRole')
 const validatePassword = require('../middleware/validatePassword')
-const { verifyResetToken, getQueryToken } = require('../middleware/validateToken')
+const {
+	verifyResetToken, getQueryToken, getAuthToken, verifyAuthToken,
+} = require('../middleware/validateToken')
 const validateInput = require('../middleware/validation')
 const {
 	createUserSchema, loginUserSchema, forgotPasswordSchema, resetTokenSchema, resetPasswordSchema,
@@ -49,6 +51,13 @@ router
 		checkUserRole('admin'),
 		validatePassword,
 		loginUser,
+	)
+	.get(
+		'/',
+		getAuthToken,
+		verifyAuthToken,
+		checkUserRole('user'),
+		getUserDetails,
 	)
 
 module.exports = router

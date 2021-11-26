@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const { createUser, passwordReset } = require('../services/user')
 const { generateToken } = require('../utils/token')
 const { forgotPasswordHTML } = require('../constants/forgotPassword')
@@ -31,7 +32,6 @@ const loginUser = async (req, res, next) => {
 const forgotPassword = async (req, res, next) => {
 	try {
 		const {
-			// eslint-disable-next-line camelcase
 			id, email, password, first_name,
 		} = req.user
 		const token = await generateToken({ id, email }, password, 'reset')
@@ -66,9 +66,29 @@ const resetPassword = async (req, res, next) => {
 	}
 }
 
+const getUserDetails = (req, res, next) => {
+	try {
+		const {
+			id, first_name, last_name, email, phone,
+		} = req.user
+
+		successResponse(
+			res,
+			'User details fetched successfully',
+			{
+				id, first_name, last_name, email, phone,
+			},
+			200,
+		)
+	} catch (err) {
+		next(err)
+	}
+}
+
 module.exports = {
 	registerUser,
 	loginUser,
 	forgotPassword,
 	resetPassword,
+	getUserDetails,
 }
