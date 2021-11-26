@@ -24,8 +24,8 @@ router
 		'/login',
 		validateInput(loginUserSchema, 'body'),
 		checkUserExists('login'),
-		validatePassword,
 		checkUserRole('user'),
+		validatePassword,
 		loginUser,
 	)
 	.post(
@@ -41,6 +41,14 @@ router
 		getQueryToken,
 		verifyResetToken,
 		resetPassword,
+	)
+	.post(
+		'/admin/login',
+		validateInput(loginUserSchema, 'body'),
+		checkUserExists('login'),
+		checkUserRole('admin'),
+		validatePassword,
+		loginUser,
 	)
 
 module.exports = router

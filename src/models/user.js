@@ -40,10 +40,18 @@ const resetTokenSchema = {
 	message: 'Error resetting password',
 }
 
+const accessTokenSchema = {
+	schema: Joi.object().keys({
+		accessToken: Joi.string().required(),
+	}),
+	message: 'Error resetting password',
+}
+
 module.exports = {
 	createUserSchema,
 	loginUserSchema,
 	forgotPasswordSchema,
 	resetPasswordSchema,
 	resetTokenSchema,
+	accessTokenSchema,
 }
