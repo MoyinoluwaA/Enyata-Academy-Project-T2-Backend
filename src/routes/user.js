@@ -53,7 +53,7 @@ router
 		loginUser,
 	)
 	.get(
-		'/',
+		'/details',
 		getAuthToken,
 		verifyAuthToken,
 		checkUserRole('user'),
