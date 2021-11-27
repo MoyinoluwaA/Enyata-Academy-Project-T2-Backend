@@ -11,6 +11,19 @@ const applicationSchema = {
 	message: 'Error creating application',
 }
 
+const makeApplicationSchema = {
+	schema: Joi.object().keys({
+		address: Joi.string().required(),
+		university: Joi.string().required(),
+		course: Joi.string().required(),
+		cgpa: Joi.string().required(),
+		cv: Joi.string().required(),
+		picture: Joi.string().required(),
+	}),
+	message: 'Error while applying',
+}
+
 module.exports = {
 	applicationSchema,
+	makeApplicationSchema,
 }

@@ -12,3 +12,4 @@ exports.addNewApplication = async (body) => {
 }
 
 exports.getApplicationById = (batch_id) => db.any(queries.getApplicationById, batch_id)
+exports.getLatestApplication = async () => db.any(queries.getLastApplication)

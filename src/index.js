@@ -5,6 +5,7 @@ const userRouter = require('./routes/user')
 const applicationRouter = require('./routes/application')
 const { createUserTable } = require('./db/queries/user')
 const { createApplicationTable } = require('./db/queries/application')
+const { createApplicantTable } = require('./db/queries/applicant')
 
 const port = process.env.PORT || 5000
 
@@ -48,6 +49,7 @@ db.connect()
 		app.listen(port, () => {
 			db.any(createUserTable)
 			db.any(createApplicationTable)
+			db.any(createApplicantTable)
 			console.log(`Server started on port ${port}`)
 			obj.done()
 		})

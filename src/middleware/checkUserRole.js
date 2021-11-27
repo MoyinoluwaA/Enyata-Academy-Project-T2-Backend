@@ -1,9 +1,8 @@
+const { errorResponse } = require('../utils/errorResponse')
+
 /**
    * @description Ensure user role is same as the required type
    */
-
-const { errorResponse } = require('../utils/errorResponse')
-
 const checkUserRole = (type) => (req, res, next) => {
 	const { user } = req
 

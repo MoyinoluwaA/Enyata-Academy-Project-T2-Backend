@@ -48,6 +48,7 @@ module.exports = {
 
 	/**
 	* @description Gets a user by email from user table
+	* @param {string} email - the email of the user
 	*/
 	getUserByEmail: `
         SELECT *
@@ -57,6 +58,7 @@ module.exports = {
 
 	/**
 	* @description Gets a user by phone from user table
+	* @param {string} phone - the phone number of the user
 	*/
 	getUserByPhone: `
         SELECT *
@@ -82,6 +84,7 @@ module.exports = {
 
 	/**
 	 * @description delete a user using their email
+	 * @param {string} email - the email of the user
 	 */
 	deleteUser: `
 		DELETE FROM users
@@ -100,4 +103,28 @@ module.exports = {
 		WHERE email=$2
 		RETURNING *
 	`,
+
+	/**
+	 * @description update a user details using their id
+	 * @param {string} id - the id of the user
+	 * @param {string} address - the user address
+	 * @param {string} university - the user university
+	 * @param {string} course - the user course
+	 * @param {string} cgpa - the user cgpa
+	 * @param {string} cv - the user cv
+	 * @param {string} picture - the user picture
+	 * @returns {<promise>} user - the updated user
+	 */
+	updateUser: `
+		UPDATE users
+		SET 
+			address=$1,
+			university=$2,
+			course=$3,
+			cgpa=$4,
+			cv=$5,
+			picture=$6
+		WHERE id=$7
+		RETURNING *
+ 	`,
 }

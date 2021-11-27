@@ -20,3 +20,12 @@ exports.passwordReset = async (email, password) => {
 	const encryptedPassword = await hashPassword(password)
 	return db.one(queries.updatePassword, [encryptedPassword, email])
 }
+
+exports.updateUser = async (body, id) => {
+	const {
+		address, university, course, cgpa, cv, picture,
+	} = body
+
+	const payload = [address, university, course, cgpa, cv, picture, id]
+	return db.one(queries.updateUser, payload)
+}
