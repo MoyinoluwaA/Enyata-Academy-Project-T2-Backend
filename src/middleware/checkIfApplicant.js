@@ -6,7 +6,7 @@ const { errorResponse } = require('../utils/errorResponse')
    */
 const checkIfApplicant = async (req, res, next) => {
 	try {
-		const { user, batchId } = req
+		const { user, query: { batchId } } = req
 		const applicant = await getApplicantInBatch(user.id, batchId)
 
 		if (applicant) {

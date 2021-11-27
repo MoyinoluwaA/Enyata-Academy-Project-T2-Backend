@@ -32,10 +32,18 @@ const makeApplicationSchema = {
 			],
 		}).required(),
 	}),
-	message: 'Error while applying',
+	message: 'Error occured while making application',
+}
+
+const batchIdSchema = {
+	schema: Joi.object().keys({
+		batchId: Joi.string().required(),
+	}),
+	message: 'Error occured while making application',
 }
 
 module.exports = {
 	applicationSchema,
 	makeApplicationSchema,
+	batchIdSchema,
 }
