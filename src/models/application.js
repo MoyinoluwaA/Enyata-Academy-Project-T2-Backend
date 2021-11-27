@@ -5,7 +5,11 @@ const applicationSchema = {
 		batch_id: Joi.string().required(),
 		start_date: Joi.date().raw().greater('now').required(),
 		closing_date: Joi.date().raw().min(Joi.ref('start_date')).required(),
-		application_link: Joi.string().required(),
+		application_link: Joi.string().uri({
+			scheme: [
+				/https/,
+			],
+		}).required(),
 		instructions: Joi.string().required(),
 	}),
 	message: 'Error creating application',
