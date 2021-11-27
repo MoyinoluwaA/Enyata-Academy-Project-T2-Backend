@@ -8,7 +8,7 @@ const { errorResponse } = require('../utils/errorResponse')
 const checkApplicationExists = async (req, res, next) => {
 	try {
 		const { body: { batch_id } } = req
-		const [application] = await getApplicationById(batch_id)
+		const application = await getApplicationById(batch_id)
 
 		if (application) {
 			return errorResponse(res, 'Application with this batch_id already exists', 400)

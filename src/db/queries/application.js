@@ -38,4 +38,13 @@ module.exports = {
         FROM applications
         WHERE batch_id=$1
     `,
+
+	/**
+   * @description Get latest application
+   */
+	getLastApplication: `
+        SELECT * 
+        FROM applications 
+        WHERE id=(SELECT max(id) FROM applications)
+    `,
 }

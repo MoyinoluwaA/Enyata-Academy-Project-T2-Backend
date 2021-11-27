@@ -11,4 +11,5 @@ exports.addNewApplication = async (body) => {
 	return db.one(queries.addApplication, payload)
 }
 
-exports.getApplicationById = (batch_id) => db.any(queries.getApplicationById, batch_id)
+exports.getApplicationById = (batch_id) => db.oneOrNone(queries.getApplicationById, batch_id)
+exports.getLatestApplication = async () => db.oneOrNone(queries.getLastApplication)
