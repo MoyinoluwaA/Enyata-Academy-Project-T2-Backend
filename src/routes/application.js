@@ -1,7 +1,7 @@
 const express = require('express')
-const { createApplication, makeApplication } = require('../controller/application')
+const { createApplication, makeApplication, getApplication } = require('../controller/application')
 const validateInput = require('../middleware/validation')
-const { applicationSchema, makeApplicationSchema } = require('../models/application')
+const { applicationSchema, makeApplicationSchema, batchIdSchema } = require('../models/application')
 const { getAuthToken, verifyAuthToken } = require('../middleware/validateToken')
 const checkUserRole = require('../middleware/checkUserRole')
 const checkApplicationExists = require('../middleware/checkApplicationExists')
@@ -26,10 +26,19 @@ router
 		getAuthToken,
 		verifyAuthToken,
 		checkUserRole('user'),
-		getCurrentApplication,
+		validateInput(batchIdSchema, 'query'),
 		checkIfApplicant,
 		validateInput(makeApplicationSchema, 'body'),
 		makeApplication,
+	)
+
+	.get(
+		'/status',
+		getAuthToken,
+		verifyAuthToken,
+		checkUserRole('user'),
+		getCurrentApplication,
+		getApplication,
 	)
 
 module.exports = router

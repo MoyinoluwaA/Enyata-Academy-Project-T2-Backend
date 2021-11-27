@@ -16,7 +16,7 @@ const createApplication = async (req, res, next) => {
 
 const makeApplication = async (req, res, next) => {
 	try {
-		const { body, batchId, user: { id } } = req
+		const { body, query: { batchId }, user: { id } } = req
 		await updateUser(body, id)
 		const [application] = await makeNewApplication(id, batchId)
 
@@ -26,7 +26,18 @@ const makeApplication = async (req, res, next) => {
 	}
 }
 
+const getApplication = async (req, res, next) => {
+	try {
+		const { batchId } = req
+
+		successResponse(res, `Application ${batchId} is ongoing`, { batchId }, 200)
+	} catch (err) {
+		next(err)
+	}
+}
+
 module.exports = {
 	createApplication,
 	makeApplication,
+	getApplication,
 }
