@@ -6,13 +6,13 @@ const { getAuthToken, verifyAuthToken } = require('../middleware/validateToken')
 const checkUserRole = require('../middleware/checkUserRole')
 const checkApplicationExists = require('../middleware/checkApplicationExists')
 const checkIfApplicant = require('../middleware/checkIfApplicant')
-const getCurrentApplication = require('../middleware/getCurrentApplicatiom')
+const getCurrentApplication = require('../middleware/getCurrentApplication')
 
 const router = express.Router()
 
 router
 	.post(
-		'/applications',
+		'/create',
 		getAuthToken,
 		verifyAuthToken,
 		checkUserRole('admin'),
@@ -22,13 +22,13 @@ router
 	)
 
 	.put(
-		'/applications/create',
+		'/apply',
 		getAuthToken,
 		verifyAuthToken,
 		checkUserRole('user'),
-		validateInput(makeApplicationSchema, 'body'),
 		getCurrentApplication,
 		checkIfApplicant,
+		validateInput(makeApplicationSchema, 'body'),
 		makeApplication,
 	)
 

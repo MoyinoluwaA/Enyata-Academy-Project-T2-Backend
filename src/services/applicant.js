@@ -4,7 +4,7 @@ const db = require('../db')
 const queries = require('../db/queries/applicant')
 
 exports.getApplicantInBatch = async (user_id, batch_id) => {
-	return db.any(queries.getApplicantInBatch, [user_id, batch_id])
+	return db.oneOrNone(queries.getApplicantInBatch, [user_id, batch_id])
 }
 
 exports.makeNewApplication = async (user_id, batch_id) => {

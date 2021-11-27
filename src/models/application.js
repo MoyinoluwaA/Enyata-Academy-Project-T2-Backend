@@ -17,8 +17,16 @@ const makeApplicationSchema = {
 		university: Joi.string().required(),
 		course: Joi.string().required(),
 		cgpa: Joi.string().required(),
-		cv: Joi.string().required(),
-		picture: Joi.string().required(),
+		cv: Joi.string().uri({
+			scheme: [
+				/https/,
+			],
+		}).required(),
+		picture: Joi.string().uri({
+			scheme: [
+				/https/,
+			],
+		}).required(),
 	}),
 	message: 'Error while applying',
 }

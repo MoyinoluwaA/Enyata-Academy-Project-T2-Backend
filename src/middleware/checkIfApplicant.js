@@ -7,7 +7,7 @@ const { errorResponse } = require('../utils/errorResponse')
 const checkIfApplicant = async (req, res, next) => {
 	try {
 		const { user, batchId } = req
-		const [applicant] = await getApplicantInBatch(user.id, batchId)
+		const applicant = await getApplicantInBatch(user.id, batchId)
 
 		if (applicant) {
 			return errorResponse(res, 'You can only apply once per batch', 401)

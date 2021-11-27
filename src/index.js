@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const express = require('express')
+const cors = require('cors')
 const db = require('./db')
 const userRouter = require('./routes/user')
 const applicationRouter = require('./routes/application')
@@ -11,6 +12,7 @@ const port = process.env.PORT || 5000
 
 const app = express()
 
+app.use(cors({ origin: '*' }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
@@ -23,7 +25,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/users', userRouter)
-app.use('/api', applicationRouter)
+app.use('/api/applications', applicationRouter)
 
 app.use((req, res) => {
 	res.status(404).json({

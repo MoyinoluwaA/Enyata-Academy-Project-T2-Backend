@@ -6,11 +6,13 @@ const { errorResponse } = require('../utils/errorResponse')
    */
 const getCurrentApplication = async (req, res, next) => {
 	try {
-		const [application] = await getLatestApplication()
+		const application = await getLatestApplication()
+		if (!application) {
+			return errorResponse(res, 'No application currently', 404)
+		}
+
 		const today = new Date(Date.now())
-
 		const isOngoing = application.start_date <= today <= application.closing_date
-
 		if (!isOngoing) {
 			return errorResponse(res, 'No application is ongoing', 404)
 		}
