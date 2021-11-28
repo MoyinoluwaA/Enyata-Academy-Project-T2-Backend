@@ -47,4 +47,19 @@ module.exports = {
         VALUES ($1, $2)
         RETURNING *
     `,
+
+	/**
+     * @description get all applicants for a particular batch
+     * @param {integer} batch_id - the unigue identifier of the batch
+     * @returns {<promise>} - a promise that resolves to an array of applicants
+     */
+	getApplicantsInBatch: `
+        SELECT applicants.*, 
+        users.first_name, users.last_name, users.email, users.phone, 
+        users.date_of_birth, users.address, users.cgpa, users.university, users.course
+        FROM applicants
+        LEFT JOIN users ON applicants.user_id = users.id
+        WHERE batch_id=$1
+        ORDER BY applicants.created_at DESC
+    `,
 }
