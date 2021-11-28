@@ -42,8 +42,24 @@ const batchIdSchema = {
 	message: 'Error occured while making application',
 }
 
+const applicantStatusSchema = {
+	schema: Joi.object().keys({
+		status: Joi.string().valid('approved', 'declined').required(),
+	}),
+	message: 'Error occured while updating applicant status',
+}
+
+const applicantIdSchema = {
+	schema: Joi.object().keys({
+		applicantId: Joi.string().required(),
+	}),
+	message: 'Error occured while updating applicant status',
+}
+
 module.exports = {
 	applicationSchema,
 	makeApplicationSchema,
 	batchIdSchema,
+	applicantStatusSchema,
+	applicantIdSchema,
 }

@@ -1,9 +1,12 @@
 const express = require('express')
 const {
 	createApplication, makeApplication, getApplication, getApplicantsByBatchId,
+	updateApplicantsStatus,
 } = require('../controller/application')
 const validateInput = require('../middleware/validation')
-const { applicationSchema, makeApplicationSchema, batchIdSchema } = require('../models/application')
+const {
+	applicationSchema, makeApplicationSchema, batchIdSchema, applicantStatusSchema, applicantIdSchema,
+} = require('../models/application')
 const { getAuthToken, verifyAuthToken } = require('../middleware/validateToken')
 const checkUserRole = require('../middleware/checkUserRole')
 const checkApplicationExists = require('../middleware/checkApplicationExists')
@@ -29,7 +32,7 @@ router
 		verifyAuthToken,
 		checkUserRole('user'),
 		validateInput(batchIdSchema, 'query'),
-		checkIfApplicant,
+		checkIfApplicant(),
 		validateInput(makeApplicationSchema, 'body'),
 		makeApplication,
 	)
@@ -50,6 +53,16 @@ router
 		validateInput(batchIdSchema, 'params'),
 		checkApplicationExists('getApplicants'),
 		getApplicantsByBatchId,
+	)
+	.put(
+		'/applicants/:applicantId',
+		getAuthToken,
+		verifyAuthToken,
+		checkUserRole('admin'),
+		validateInput(applicantIdSchema, 'params'),
+		checkIfApplicant('updateApplicantStatus'),
+		validateInput(applicantStatusSchema, 'body'),
+		updateApplicantsStatus,
 	)
 
 module.exports = router

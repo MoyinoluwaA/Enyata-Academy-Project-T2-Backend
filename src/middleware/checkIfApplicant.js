@@ -1,16 +1,29 @@
-const { getApplicantInBatch } = require('../services/applicant')
+const { getApplicantInBatch, getApplicantById } = require('../services/applicant')
 const { errorResponse } = require('../utils/errorResponse')
 
 /**
-   * @description Ensure user can apply only once per application
+   * @description check if applicant exists
+   * @param {Object} type - type of action [apply by default]
+   * @param {Object} req - Express request object
+   * @param {Object} res - Express response object
+   * @param {Object} next - Express next middleware function
    */
-const checkIfApplicant = async (req, res, next) => {
+const checkIfApplicant = (type = 'apply') => async (req, res, next) => {
 	try {
-		const { user, query: { batchId } } = req
-		const applicant = await getApplicantInBatch(user.id, batchId)
+		if (type === 'apply') {
+			const { user, query: { batchId } } = req
+			const applicant = await getApplicantInBatch(user.id, batchId)
 
-		if (applicant) {
-			return errorResponse(res, 'You can only apply once per batch', 401)
+			if (applicant) {
+				return errorResponse(res, 'You can only apply once per batch', 401)
+			}
+		} else {
+			const { params: { applicantId } } = req
+			const applicant = await getApplicantById(applicantId)
+
+			if (!applicant) {
+				return errorResponse(res, 'Applicant not found', 404)
+			}
 		}
 
 		next()
