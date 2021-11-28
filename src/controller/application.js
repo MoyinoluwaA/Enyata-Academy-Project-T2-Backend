@@ -1,4 +1,4 @@
-const { makeNewApplication } = require('../services/applicant')
+const { makeNewApplication, getApplicantsInBatch } = require('../services/applicant')
 const { addNewApplication } = require('../services/application')
 const { updateUser } = require('../services/user')
 const { successResponse } = require('../utils/successResponse')
@@ -36,8 +36,27 @@ const getApplication = async (req, res, next) => {
 	}
 }
 
+/**
+ * @description: Get all applicants by batchId
+ * @param {type} req - request object
+ * @param {type} res - response object
+ * @returns {object} - response object
+ */
+
+const getApplicantsByBatchId = async (req, res, next) => {
+	try {
+		const { batchId } = req.params
+		const applicants = await getApplicantsInBatch(batchId)
+
+		successResponse(res, `Applicants in batch ${batchId} fetched successfully`, applicants, 200)
+	} catch (err) {
+		next(err)
+	}
+}
+
 module.exports = {
 	createApplication,
 	makeApplication,
 	getApplication,
+	getApplicantsByBatchId,
 }

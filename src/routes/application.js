@@ -1,5 +1,7 @@
 const express = require('express')
-const { createApplication, makeApplication, getApplication } = require('../controller/application')
+const {
+	createApplication, makeApplication, getApplication, getApplicantsByBatchId,
+} = require('../controller/application')
 const validateInput = require('../middleware/validation')
 const { applicationSchema, makeApplicationSchema, batchIdSchema } = require('../models/application')
 const { getAuthToken, verifyAuthToken } = require('../middleware/validateToken')
@@ -39,6 +41,15 @@ router
 		checkUserRole('user'),
 		getCurrentApplication,
 		getApplication,
+	)
+	.get(
+		'/applicants/:batchId',
+		getAuthToken,
+		verifyAuthToken,
+		checkUserRole('admin'),
+		validateInput(batchIdSchema, 'params'),
+		checkApplicationExists('getApplicants'),
+		getApplicantsByBatchId,
 	)
 
 module.exports = router
