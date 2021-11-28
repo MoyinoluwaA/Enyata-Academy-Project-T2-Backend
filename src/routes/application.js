@@ -17,7 +17,7 @@ router
 		verifyAuthToken,
 		checkUserRole('admin'),
 		validateInput(applicationSchema, 'body'),
-		checkApplicationExists,
+		checkApplicationExists(),
 		createApplication,
 	)
 
