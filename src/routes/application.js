@@ -43,8 +43,10 @@ router
 		verifyAuthToken,
 		checkUserRole('user'),
 		getCurrentApplication,
+		checkIfApplicant('status'),
 		getApplication,
 	)
+
 	.get(
 		'/applicants/:batchId',
 		getAuthToken,
@@ -54,6 +56,7 @@ router
 		checkApplicationExists('getApplicants'),
 		getApplicantsByBatchId,
 	)
+
 	.put(
 		'/applicants/:applicantId',
 		getAuthToken,

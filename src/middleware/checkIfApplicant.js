@@ -17,6 +17,14 @@ const checkIfApplicant = (type = 'apply') => async (req, res, next) => {
 			if (applicant) {
 				return errorResponse(res, 'You can only apply once per batch', 401)
 			}
+		} else if (type === 'status') {
+			const { user, batchId } = req
+			const applicant = await getApplicantInBatch(user.id, batchId)
+
+			let isApplicant
+			// eslint-disable-next-line no-unused-expressions
+			applicant ? isApplicant = true : isApplicant = false
+			req.isApplicant = isApplicant
 		} else {
 			const { params: { applicantId } } = req
 			const applicant = await getApplicantById(applicantId)
