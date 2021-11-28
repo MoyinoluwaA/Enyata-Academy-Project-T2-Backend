@@ -1,4 +1,4 @@
-const { makeNewApplication, getApplicantsInBatch } = require('../services/applicant')
+const { makeNewApplication, getApplicantsInBatch, updateApplicantStatus } = require('../services/applicant')
 const { addNewApplication } = require('../services/application')
 const { updateUser } = require('../services/user')
 const { successResponse } = require('../utils/successResponse')
@@ -54,9 +54,21 @@ const getApplicantsByBatchId = async (req, res, next) => {
 	}
 }
 
+const updateApplicantsStatus = async (req, res, next) => {
+	try {
+		const { params: { applicantId }, body: { status } } = req
+		const applicant = await updateApplicantStatus(applicantId, status)
+
+		successResponse(res, 'Applicant status update was successful', applicant, 200)
+	} catch (err) {
+		next(err)
+	}
+}
+
 module.exports = {
 	createApplication,
 	makeApplication,
 	getApplication,
 	getApplicantsByBatchId,
+	updateApplicantsStatus,
 }

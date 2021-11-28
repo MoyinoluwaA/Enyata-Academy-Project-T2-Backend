@@ -19,3 +19,22 @@ exports.makeNewApplication = async (user_id, batch_id) => {
 exports.getApplicantsInBatch = async (batch_id) => {
 	return db.any(queries.getApplicantsInBatch, [batch_id])
 }
+
+/**
+ * @description - update the status of the applicant
+ * @param {string} applicantId applicant id
+ * @param {string} status applicant status
+ * @returns {<promise>}	promise object with the result of the query
+ */
+exports.updateApplicantStatus = async (applicantId, status) => {
+	return db.one(queries.updateApplicantStatus, [applicantId, status])
+}
+
+/**
+ * @description - get applicant by id
+ * @param {string} applicantId applicant id
+ * @returns {<promise>}	promise object with the result of the query
+ */
+exports.getApplicantById = async (applicantId) => {
+	return db.oneOrNone(queries.getApplicantById, [applicantId])
+}

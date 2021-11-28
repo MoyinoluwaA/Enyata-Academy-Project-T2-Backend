@@ -61,5 +61,29 @@ module.exports = {
         LEFT JOIN users ON applicants.user_id = users.id
         WHERE batch_id=$1
         ORDER BY applicants.created_at DESC
+        `,
+
+	/**
+     * @description - update applicant status
+     * @param {string} id applicant id
+     * @param {string} status applicant status
+     * @returns {string} query
+     */
+	updateApplicantStatus: `
+        UPDATE applicants
+        SET status=$2, updated_at=NOW()
+        WHERE id=$1
+        RETURNING *
+    `,
+
+	/**
+     * @description - get applicant by id
+     * @param {string} id applicant id
+     * @returns {string} query
+     */
+	getApplicantById: `
+        SELECT *
+        FROM applicants
+        WHERE id=$1  
     `,
 }
