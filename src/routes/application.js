@@ -55,7 +55,7 @@ router
 		getApplicantsByBatchId,
 	)
 	.put(
-		'/status/:applicantId',
+		'/applicants/:applicantId',
 		getAuthToken,
 		verifyAuthToken,
 		checkUserRole('admin'),
