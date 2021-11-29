@@ -23,9 +23,9 @@ exports.passwordReset = async (email, password) => {
 
 exports.updateUser = async (body, id) => {
 	const {
-		address, university, course, cgpa, cv, picture,
+		date_of_birth, address, university, course, cgpa, cv, picture,
 	} = body
 
-	const payload = [address, university, course, cgpa, cv, picture, id]
+	const payload = [date_of_birth, address, university, course, cgpa, cv, picture, id]
 	return db.one(queries.updateUser, payload)
 }

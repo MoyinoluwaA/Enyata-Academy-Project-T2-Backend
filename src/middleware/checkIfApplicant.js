@@ -25,6 +25,7 @@ const checkIfApplicant = (type = 'apply') => async (req, res, next) => {
 			// eslint-disable-next-line no-unused-expressions
 			applicant ? isApplicant = true : isApplicant = false
 			req.isApplicant = isApplicant
+			req.applicant = applicant
 		} else {
 			const { params: { applicantId } } = req
 			const applicant = await getApplicantById(applicantId)

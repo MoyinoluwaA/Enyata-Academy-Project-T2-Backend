@@ -17,6 +17,7 @@ const applicationSchema = {
 
 const makeApplicationSchema = {
 	schema: Joi.object().keys({
+		date_of_birth: Joi.date().required(),
 		address: Joi.string().required(),
 		university: Joi.string().required(),
 		course: Joi.string().required(),

@@ -118,13 +118,14 @@ module.exports = {
 	updateUser: `
 		UPDATE users
 		SET 
-			address=$1,
-			university=$2,
-			course=$3,
-			cgpa=$4,
-			cv=$5,
-			picture=$6
-		WHERE id=$7
+			date_of_birth=$1,
+			address=$2,
+			university=$3,
+			course=$4,
+			cgpa=$5,
+			cv=$6,
+			picture=$7
+		WHERE id=$8
 		RETURNING *
  	`,
 }

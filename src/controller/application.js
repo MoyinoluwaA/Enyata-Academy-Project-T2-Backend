@@ -3,6 +3,12 @@ const { addNewApplication } = require('../services/application')
 const { updateUser } = require('../services/user')
 const { successResponse } = require('../utils/successResponse')
 
+/**
+ * @description: Create application by admin
+ * @param {type} req - request object
+ * @param {type} res - response object
+ * @returns {object} - response object
+ */
 const createApplication = async (req, res, next) => {
 	try {
 		const { body } = req
@@ -14,6 +20,12 @@ const createApplication = async (req, res, next) => {
 	}
 }
 
+/**
+ * @description: Make application by users
+ * @param {type} req - request object
+ * @param {type} res - response object
+ * @returns {object} - response object
+ */
 const makeApplication = async (req, res, next) => {
 	try {
 		const { body, query: { batchId }, user: { id } } = req
@@ -26,11 +38,17 @@ const makeApplication = async (req, res, next) => {
 	}
 }
 
+/**
+ * @description: Get ongoing application and is_applicant status
+ * @param {type} req - request object
+ * @param {type} res - response object
+ * @returns {object} - response object
+ */
 const getApplication = async (req, res, next) => {
 	try {
-		const { batchId, isApplicant } = req
+		const { batchId, isApplicant, applicant } = req
 
-		successResponse(res, `Application ${batchId} is ongoing`, { batchId, isApplicant }, 200)
+		successResponse(res, `Application ${batchId} is ongoing`, { batchId, isApplicant, applicant }, 200)
 	} catch (err) {
 		next(err)
 	}
@@ -42,7 +60,6 @@ const getApplication = async (req, res, next) => {
  * @param {type} res - response object
  * @returns {object} - response object
  */
-
 const getApplicantsByBatchId = async (req, res, next) => {
 	try {
 		const { batchId } = req.params
@@ -54,6 +71,12 @@ const getApplicantsByBatchId = async (req, res, next) => {
 	}
 }
 
+/**
+ * @description: Update applicant status by admin to approved or declined
+ * @param {type} req - request object
+ * @param {type} res - response object
+ * @returns {object} - response object
+ */
 const updateApplicantsStatus = async (req, res, next) => {
 	try {
 		const { params: { applicantId }, body: { status } } = req
