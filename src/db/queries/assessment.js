@@ -14,16 +14,16 @@ module.exports = {
 
 			CREATE TABLE IF NOT EXISTS assessments (
 				id SERIAL PRIMARY KEY,
-				batch_id VARCHAR NOT NULL,
+				batch_id INT NOT NULL,
 				image VARCHAR,
 				assessment_test JSON NOT NULL,
 				start_date DATE NOT NULL,
 				closing_date DATE NOT NULL,
 				time_allotted INTEGER NOT NULL,
 				status assessment_status NOT NULL DEFAULT 'pending',
-				FOREIGN KEY (batch_id) REFERENCES applications (id),
 				created_at TIMESTAMPTZ DEFAULT NOW(),
-				updated_at TIMESTAMPTZ DEFAULT NOW()
+				updated_at TIMESTAMPTZ DEFAULT NOW(),
+				FOREIGN KEY (batch_id) REFERENCES applications (id)
 			);  
 	`,
 

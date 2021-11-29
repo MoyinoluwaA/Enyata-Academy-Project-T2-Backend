@@ -28,9 +28,9 @@ const makeApplication = async (req, res, next) => {
 
 const getApplication = async (req, res, next) => {
 	try {
-		const { batchId } = req
+		const { batchId, isApplicant } = req
 
-		successResponse(res, `Application ${batchId} is ongoing`, { batchId }, 200)
+		successResponse(res, `Application ${batchId} is ongoing`, { batchId, isApplicant }, 200)
 	} catch (err) {
 		next(err)
 	}
