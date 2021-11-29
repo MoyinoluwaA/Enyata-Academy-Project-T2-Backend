@@ -36,7 +36,7 @@ module.exports = {
 	getApplicationById: `
         SELECT *
         FROM applications
-        WHERE batch_id=$1
+        WHERE id=$1
     `,
 
 	/**

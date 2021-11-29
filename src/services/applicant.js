@@ -3,10 +3,22 @@
 const db = require('../db')
 const queries = require('../db/queries/applicant')
 
+/**
+ * @description - Get an applicant in a batch
+ * @param {string} user_id id of the user
+ * @param {string} batch_id id of the batch
+ * @returns {<promise>}	promise object with the result of the query
+ */
 exports.getApplicantInBatch = async (user_id, batch_id) => {
 	return db.oneOrNone(queries.getApplicantInBatch, [user_id, batch_id])
 }
 
+/**
+ * @description - Make new application by applicants in a batch
+ * @param {string} user_id id of the user
+ * @param {string} batch_id id of the batch
+ * @returns {<Array>} array of applicants
+ */
 exports.makeNewApplication = async (user_id, batch_id) => {
 	return db.any(queries.addApplicant, [user_id, batch_id])
 }
