@@ -11,3 +11,13 @@ exports.createAssessment = async (req, res, next) => {
 		next(err)
 	}
 }
+
+exports.getAssessment = async (req, res, next) => {
+	try {
+		const { assessment } = req
+
+		successResponse(res, 'Assessment fetched successfully', assessment, 200)
+	} catch (err) {
+		next(err)
+	}
+}

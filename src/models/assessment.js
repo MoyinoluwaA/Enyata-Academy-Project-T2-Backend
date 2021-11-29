@@ -2,10 +2,10 @@ const Joi = require('joi')
 
 exports.assessmentSchema = {
 	schema: Joi.object().keys({
-		batch_id: Joi.string().required(),
-		image: Joi.string(),
+		batch_id: Joi.number().required(),
 		assessment_test: Joi.array().items(Joi.object().keys({
 			question: Joi.string().required(),
+			image: Joi.string(),
 			options: Joi.object().keys({
 				a: Joi.string().required(),
 				b: Joi.string().required(),
