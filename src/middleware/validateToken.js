@@ -3,9 +3,9 @@ const { errorResponse } = require('../utils/errorResponse')
 const { getUserByEmail } = require('../services/user')
 
 exports.getQueryToken = async (req, res, next) => {
-	const { resetToken } = req.query
+	const { resetToken, verifyToken } = req.query
 
-	req.token = resetToken
+	req.token = resetToken || verifyToken
 	next()
 }
 

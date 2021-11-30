@@ -1,16 +1,28 @@
 /* eslint-disable camelcase */
-const { createUser, passwordReset, updateAdmin } = require('../services/user')
+const {
+	createUser, passwordReset, updateAdmin, verifyUser,
+} = require('../services/user')
 const { generateToken } = require('../utils/token')
 const { forgotPasswordHTML } = require('../constants/forgotPassword')
 const emailHandler = require('../services/emailHandler')
 const { passwordResetHTML } = require('../constants/passwordReset')
 const { successResponse } = require('../utils/successResponse')
+const { verifyUserEmail, verifiedSuccess } = require('../constants/verifyUser')
 
 const registerUser = async (req, res, next) => {
 	try {
 		const { body } = req
 		const newUser = await createUser(body)
 		const { password, ...user } = newUser
+
+		// generate token
+		const token = await generateToken(user)
+
+		// send mail
+		const subject = 'Welcome to Enyata Academy'
+		const text = 'Verify your account here'
+		const html = verifyUserEmail(user.first_name, token)
+		await emailHandler(user.email, subject, text, html)
 
 		successResponse(res, 'User added successfully', user, 201)
 	} catch (err) {
@@ -116,6 +128,29 @@ const updateAdminDetails = async (req, res, next) => {
 	}
 }
 
+const verifyUserByEmail = async (req, res, next) => {
+	try {
+		const { email } = req.user
+
+		const { password, ...user } = await verifyUser(email)
+
+		// send mail
+		const subject = 'Email verified successfully'
+		const text = 'Account verified successfully'
+		const html = verifiedSuccess(user.first_name)
+		await emailHandler(email, subject, text, html)
+
+		successResponse(
+			res,
+			'User verified successfully',
+			user,
+			200,
+		)
+	} catch (err) {
+		next(err)
+	}
+}
+
 module.exports = {
 	registerUser,
 	loginUser,
@@ -123,4 +158,5 @@ module.exports = {
 	resetPassword,
 	getUserDetails,
 	updateAdminDetails,
+	verifyUserByEmail,
 }

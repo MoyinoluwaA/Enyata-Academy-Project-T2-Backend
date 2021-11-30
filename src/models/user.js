@@ -60,6 +60,13 @@ const updateAdminSchema = {
 	message: 'Error updating admin',
 }
 
+const verifyTokenSchema = {
+	schema: Joi.object().keys({
+		verifyToken: Joi.string().required(),
+	}),
+	message: 'Verify Token is required',
+}
+
 module.exports = {
 	createUserSchema,
 	loginUserSchema,
@@ -68,4 +75,5 @@ module.exports = {
 	resetTokenSchema,
 	accessTokenSchema,
 	updateAdminSchema,
+	verifyTokenSchema,
 }
