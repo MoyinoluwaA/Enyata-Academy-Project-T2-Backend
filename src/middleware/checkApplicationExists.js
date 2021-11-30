@@ -12,7 +12,7 @@ const { errorResponse } = require('../utils/errorResponse')
 const checkApplicationExists = (type = 'createApplication') => async (req, res, next) => {
 	try {
 		const { body: { batch_id }, params: { batchId } } = req
-		const application = await getApplicationById(batch_id || batchId)
+		const application = await getApplicationById(Number(batch_id) || batchId)
 
 		if (type === 'createApplication') {
 			if (application) {
