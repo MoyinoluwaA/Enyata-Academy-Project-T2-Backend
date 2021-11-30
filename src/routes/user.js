@@ -1,6 +1,6 @@
 const express = require('express')
 const {
-	registerUser, loginUser, forgotPassword, resetPassword, getUserDetails,
+	registerUser, loginUser, forgotPassword, resetPassword, getUserDetails, updateAdminDetails,
 } = require('../controller/user')
 const checkUserExists = require('../middleware/checkUserExists')
 const checkUserRole = require('../middleware/checkUserRole')
@@ -11,6 +11,7 @@ const {
 const validateInput = require('../middleware/validation')
 const {
 	createUserSchema, loginUserSchema, forgotPasswordSchema, resetTokenSchema, resetPasswordSchema,
+	updateAdminSchema,
 } = require('../models/user')
 
 const router = express.Router()
@@ -58,6 +59,14 @@ router
 		verifyAuthToken,
 		checkUserRole('user'),
 		getUserDetails,
+	)
+	.put(
+		'/admin/update',
+		getAuthToken,
+		verifyAuthToken,
+		checkUserRole('admin'),
+		validateInput(updateAdminSchema, 'body'),
+		updateAdminDetails,
 	)
 
 module.exports = router

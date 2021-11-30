@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-const { createUser, passwordReset } = require('../services/user')
+const { createUser, passwordReset, updateAdmin } = require('../services/user')
 const { generateToken } = require('../utils/token')
 const { forgotPasswordHTML } = require('../constants/forgotPassword')
 const emailHandler = require('../services/emailHandler')
@@ -85,10 +85,42 @@ const getUserDetails = (req, res, next) => {
 	}
 }
 
+/**
+ * @description - Updates the admin details
+ * @param {Request} req the request object
+ * @param {Response} res the response object
+ * @param {function} next the next middleware function
+ * @returns {object} the success response object
+ */
+const updateAdminDetails = async (req, res, next) => {
+	try {
+		const {
+			user: {
+				id, first_name, last_name, email, phone, address, country,
+			},
+			body,
+		} = req
+
+		const { password, ...updatedAdmin } = await updateAdmin({
+			first_name, last_name, email, phone, address, country, ...body,
+		}, id)
+
+		successResponse(
+			res,
+			'User details updated successfully',
+			updatedAdmin,
+			200,
+		)
+	} catch (err) {
+		next(err)
+	}
+}
+
 module.exports = {
 	registerUser,
 	loginUser,
 	forgotPassword,
 	resetPassword,
 	getUserDetails,
+	updateAdminDetails,
 }
