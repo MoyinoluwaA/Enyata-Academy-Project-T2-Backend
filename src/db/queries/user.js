@@ -20,6 +20,7 @@ module.exports = {
 				password VARCHAR NOT NULL,
 				date_of_birth DATE,
 				address VARCHAR,
+				country VARCHAR,
 				university VARCHAR,
 				course VARCHAR,
 				cgpa NUMERIC,
@@ -128,4 +129,30 @@ module.exports = {
 		WHERE id=$8
 		RETURNING *
  	`,
+
+	/**
+	 * @description update a admin details using their id
+	 * @param {string} id - the id of the admin
+	 * @param {string} picture - the picture of the admin
+	 * @param {string} first_name - the first name of the admin
+	 * @param {string} last_name - the last name of the admin
+	 * @param {string} email - the email of the admin
+	 * @param {string} phone - the phone number of the admin
+	 * @param {string} address - the admin address
+	 * @param {string} country - the admin country
+	 * @returns {<promise>} user - the updated admin
+	 */
+	updateAdmin: `
+		UPDATE users
+		SET
+			picture=$1,
+			first_name=$2,
+			last_name=$3,
+			email=$4,
+			phone=$5,
+			address=$6,
+			country=$7
+		WHERE id=$8
+		RETURNING *
+	`,
 }

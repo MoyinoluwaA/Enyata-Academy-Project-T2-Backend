@@ -47,6 +47,19 @@ const accessTokenSchema = {
 	message: 'Error resetting password',
 }
 
+const updateAdminSchema = {
+	schema: Joi.object().keys({
+		picture: Joi.string(),
+		first_name: Joi.string(),
+		last_name: Joi.string(),
+		email: Joi.string().email(),
+		phone: Joi.string(),
+		address: Joi.string(),
+		country: Joi.string(),
+	}),
+	message: 'Error creating new user',
+}
+
 module.exports = {
 	createUserSchema,
 	loginUserSchema,
@@ -54,4 +67,5 @@ module.exports = {
 	resetPasswordSchema,
 	resetTokenSchema,
 	accessTokenSchema,
+	updateAdminSchema,
 }

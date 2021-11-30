@@ -29,3 +29,18 @@ exports.updateUser = async (body, id) => {
 	const payload = [date_of_birth, address, university, course, cgpa, cv, picture, id]
 	return db.one(queries.updateUser, payload)
 }
+
+/**
+ * @description - update admin details using their id
+ * @param {object} body request body
+ * @param {number} id admin id
+ * @returns {<promise>}
+ */
+exports.updateAdmin = async (body, id) => {
+	const {
+		picture, first_name, last_name, email, phone, address, country,
+	} = body
+
+	const payload = [picture, first_name, last_name, email, phone, address, country, id]
+	return db.one(queries.updateAdmin, payload)
+}
