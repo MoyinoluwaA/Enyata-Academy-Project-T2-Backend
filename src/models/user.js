@@ -57,7 +57,7 @@ const updateAdminSchema = {
 		address: Joi.string(),
 		country: Joi.string(),
 	}),
-	message: 'Error creating new user',
+	message: 'Error updating admin',
 }
 
 module.exports = {
