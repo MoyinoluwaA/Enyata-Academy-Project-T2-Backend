@@ -57,10 +57,22 @@ const applicantIdSchema = {
 	message: 'Error occured while updating applicant status',
 }
 
+const applicantScoreSchema = {
+	schema: Joi.object().keys({
+		applicant_id: Joi.number().required(),
+		assessment_answers: Joi.array().items(
+			Joi.string().required(),
+		).required(),
+		assessment_score: Joi.number().required(),
+	}),
+	message: 'Error adding applicant scores',
+}
+
 module.exports = {
 	applicationSchema,
 	makeApplicationSchema,
 	batchIdSchema,
 	applicantStatusSchema,
 	applicantIdSchema,
+	applicantScoreSchema,
 }

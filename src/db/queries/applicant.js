@@ -16,6 +16,8 @@ module.exports = {
             batch_id INT NOT NULL,
             user_id INT NOT NULL,
             status application_status DEFAULT 'pending',
+            assessment_answers TEXT[],
+            assessment_score INT,
             created_at TIMESTAMPTZ DEFAULT NOW(),
             updated_at TIMESTAMPTZ DEFAULT NOW(),
             FOREIGN KEY (user_id) REFERENCES users (id),
@@ -55,7 +57,7 @@ module.exports = {
      */
 	getApplicantsInBatch: `
         SELECT applicants.*, 
-        users.first_name, users.last_name, users.email, users.phone, 
+        users.first_name, users.last_name, users.email, users.phone, users.assessment_score,
         users.date_of_birth, users.address, users.cgpa, users.university, users.course
         FROM applicants
         LEFT JOIN users ON applicants.user_id = users.id
@@ -86,4 +88,17 @@ module.exports = {
         FROM applicants
         WHERE id=$1  
     `,
+
+	/**
+	 * @description Adds applicant test score to the applicant details
+	 * @returns {<Promise>} A promise that resolves to the updated applicant
+	 */
+	addApplicantScore: `
+    UPDATE applicants 
+    SET
+        assessment_answers=$1,
+        assessment_score =$2
+    WHERE batch_id=$3 AND id=$4
+    RETURNING *;
+`,
 }

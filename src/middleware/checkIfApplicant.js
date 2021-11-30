@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const { getApplicantInBatch, getApplicantById } = require('../services/applicant')
 const { errorResponse } = require('../utils/errorResponse')
 
@@ -27,8 +28,8 @@ const checkIfApplicant = (type = 'apply') => async (req, res, next) => {
 			req.isApplicant = isApplicant
 			req.applicant = applicant
 		} else {
-			const { params: { applicantId } } = req
-			const applicant = await getApplicantById(applicantId)
+			const { params: { applicantId }, body: { applicant_id } } = req
+			const applicant = await getApplicantById(applicantId || applicant_id)
 
 			if (!applicant) {
 				return errorResponse(res, 'Applicant not found', 404)

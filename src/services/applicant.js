@@ -50,3 +50,9 @@ exports.updateApplicantStatus = async (applicantId, status) => {
 exports.getApplicantById = async (applicantId) => {
 	return db.oneOrNone(queries.getApplicantById, [applicantId])
 }
+
+exports.addApplicantScore = async (batch_id, body) => {
+	const { applicant_id, assessment_answers, assessment_score } = body
+	// eslint-disable-next-line max-len
+	return db.oneOrNone(queries.addApplicantScore, [assessment_answers, assessment_score, batch_id, applicant_id])
+}

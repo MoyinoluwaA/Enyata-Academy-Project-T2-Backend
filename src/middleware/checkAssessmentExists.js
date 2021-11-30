@@ -10,7 +10,7 @@ const { errorResponse } = require('../utils/errorResponse')
  */
 const checkAssessmentExists = async (req, res, next) => {
 	try {
-		const { query: { batchId } } = req
+		const { params: { batchId } } = req
 		const assessment = await getAssessmentByBatch(batchId)
 
 		if (!assessment) {
