@@ -1,7 +1,8 @@
 const express = require('express')
 const {
-	registerUser, loginUser, forgotPassword, resetPassword, getUserDetails,
+	registerUser, loginUser, forgotPassword, resetPassword, getUserDetails, verifyUserByEmail,
 } = require('../controller/user')
+const checkIsVerified = require('../middleware/checkIsVerified')
 const checkUserExists = require('../middleware/checkUserExists')
 const checkUserRole = require('../middleware/checkUserRole')
 const validatePassword = require('../middleware/validatePassword')
@@ -11,6 +12,7 @@ const {
 const validateInput = require('../middleware/validation')
 const {
 	createUserSchema, loginUserSchema, forgotPasswordSchema, resetTokenSchema, resetPasswordSchema,
+	verifyTokenSchema,
 } = require('../models/user')
 
 const router = express.Router()
@@ -27,6 +29,7 @@ router
 		validateInput(loginUserSchema, 'body'),
 		checkUserExists('login'),
 		checkUserRole('user'),
+		checkIsVerified('login'),
 		validatePassword,
 		loginUser,
 	)
@@ -58,6 +61,15 @@ router
 		verifyAuthToken,
 		checkUserRole('user'),
 		getUserDetails,
+	)
+	.put(
+		'/verify',
+		validateInput(verifyTokenSchema, 'query'),
+		getQueryToken,
+		verifyAuthToken,
+		checkUserRole('user'),
+		checkIsVerified('verify'),
+		verifyUserByEmail,
 	)
 
 module.exports = router

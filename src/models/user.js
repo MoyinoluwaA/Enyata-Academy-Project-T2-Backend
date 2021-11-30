@@ -47,6 +47,13 @@ const accessTokenSchema = {
 	message: 'Error resetting password',
 }
 
+const verifyTokenSchema = {
+	schema: Joi.object().keys({
+		verifyToken: Joi.string().required(),
+	}),
+	message: 'Verify Token is required',
+}
+
 module.exports = {
 	createUserSchema,
 	loginUserSchema,
@@ -54,4 +61,5 @@ module.exports = {
 	resetPasswordSchema,
 	resetTokenSchema,
 	accessTokenSchema,
+	verifyTokenSchema,
 }

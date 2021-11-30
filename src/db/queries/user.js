@@ -25,6 +25,7 @@ module.exports = {
 				cgpa NUMERIC,
 				cv VARCHAR,
 				picture VARCHAR,
+				is_verified BOOLEAN DEFAULT false,
 				role user_role DEFAULT 'user',
 				created_at TIMESTAMPTZ DEFAULT NOW(),
 				updated_at TIMESTAMPTZ DEFAULT NOW()
@@ -76,9 +77,10 @@ module.exports = {
 			email,
 			phone,
 			password,
-			role
+			role,
+			is_verified
 		)
-		VALUES ($1, $2, $3, $4, $5, 'admin')
+		VALUES ($1, $2, $3, $4, $5, 'admin', true)
 		RETURNING *
 	`,
 
@@ -128,4 +130,16 @@ module.exports = {
 		WHERE id=$8
 		RETURNING *
  	`,
+
+	/**
+	 * @description verify a user using their email
+	 * @param {string} email - the email of the user
+	 * @returns {<promise>} user - the updated user
+	 */
+	verifyUser: `
+		UPDATE users
+		SET is_verified=true
+		WHERE email=$1
+		RETURNING *	
+	`,
 }

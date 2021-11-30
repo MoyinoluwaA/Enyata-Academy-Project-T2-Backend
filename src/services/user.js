@@ -29,3 +29,5 @@ exports.updateUser = async (body, id) => {
 	const payload = [date_of_birth, address, university, course, cgpa, cv, picture, id]
 	return db.one(queries.updateUser, payload)
 }
+
+exports.verifyUser = async (email) => db.one(queries.verifyUser, [email])
