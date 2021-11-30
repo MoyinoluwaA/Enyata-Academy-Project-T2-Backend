@@ -57,7 +57,7 @@ module.exports = {
      */
 	getApplicantsInBatch: `
         SELECT applicants.*, 
-        users.first_name, users.last_name, users.email, users.phone, users.assessment_score,
+        users.first_name, users.last_name, users.email, users.phone,
         users.date_of_birth, users.address, users.cgpa, users.university, users.course
         FROM applicants
         LEFT JOIN users ON applicants.user_id = users.id
