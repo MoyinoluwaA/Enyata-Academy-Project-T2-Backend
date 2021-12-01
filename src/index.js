@@ -5,6 +5,7 @@ const db = require('./db')
 const userRouter = require('./routes/user')
 const applicationRouter = require('./routes/application')
 const assessmentRouter = require('./routes/assessment')
+const uploadRouter = require('./routes/upload')
 const { createUserTable } = require('./db/queries/user')
 const { createApplicationTable } = require('./db/queries/application')
 const { createApplicantTable } = require('./db/queries/applicant')
@@ -29,6 +30,7 @@ app.get('/', (req, res) => {
 app.use('/api/users', userRouter)
 app.use('/api/applications', applicationRouter)
 app.use('/api/assessment', assessmentRouter)
+app.use('/api/upload', uploadRouter)
 
 app.use((req, res) => {
 	res.status(404).json({
