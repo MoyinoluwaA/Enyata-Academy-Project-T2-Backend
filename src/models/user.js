@@ -63,7 +63,7 @@ const updateAdminSchema = {
 				],
 			}).required(),
 			format: Joi.string(),
-		}).required(),
+		}),
 		first_name: Joi.string(),
 		last_name: Joi.string(),
 		email: Joi.string().email(),
