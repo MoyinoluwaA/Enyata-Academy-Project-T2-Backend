@@ -28,6 +28,11 @@ module.exports = {
 
 	/**
 	 * @description Adds a new assessment to the database
+	 * @param {int} batch_id - the id of the application/batch
+	 * @param {json} assessment_test - the assessment
+	 * @param {string} start_date - the start date of the assessment
+	 * @param {string} closing_date - the end date of the assessment
+	 * @param {int} time_allotted - the time allotted for the assessment in mins
 	 * @returns {<Promise>} A promise that resolves to the newly created assessment
 	 */
 	addAssessment: `

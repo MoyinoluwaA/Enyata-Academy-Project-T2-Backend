@@ -22,15 +22,35 @@ const makeApplicationSchema = {
 		university: Joi.string().required(),
 		course: Joi.string().required(),
 		cgpa: Joi.string().required(),
-		cv: Joi.string().uri({
-			scheme: [
-				/https/,
-			],
+		cv: Joi.object().keys({
+			public_id: Joi.string().required(),
+			original_filename: Joi.string().required(),
+			url: Joi.string().uri({
+				scheme: [
+					/http/,
+				],
+			}).required(),
+			secure_url: Joi.string().uri({
+				scheme: [
+					/https/,
+				],
+			}).required(),
+			format: Joi.string(),
 		}).required(),
-		picture: Joi.string().uri({
-			scheme: [
-				/https/,
-			],
+		picture: Joi.object().keys({
+			public_id: Joi.string().required(),
+			original_filename: Joi.string().required(),
+			url: Joi.string().uri({
+				scheme: [
+					/http/,
+				],
+			}).required(),
+			secure_url: Joi.string().uri({
+				scheme: [
+					/https/,
+				],
+			}).required(),
+			format: Joi.string(),
 		}).required(),
 	}),
 	message: 'Error occured while making application',

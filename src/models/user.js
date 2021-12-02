@@ -49,7 +49,21 @@ const accessTokenSchema = {
 
 const updateAdminSchema = {
 	schema: Joi.object().keys({
-		picture: Joi.string(),
+		picture: Joi.object().keys({
+			public_id: Joi.string().required(),
+			original_filename: Joi.string().required(),
+			url: Joi.string().uri({
+				scheme: [
+					/http/,
+				],
+			}).required(),
+			secure_url: Joi.string().uri({
+				scheme: [
+					/https/,
+				],
+			}).required(),
+			format: Joi.string(),
+		}).required(),
 		first_name: Joi.string(),
 		last_name: Joi.string(),
 		email: Joi.string().email(),

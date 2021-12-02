@@ -24,8 +24,8 @@ module.exports = {
 				university VARCHAR,
 				course VARCHAR,
 				cgpa NUMERIC,
-				cv VARCHAR,
-				picture VARCHAR,
+				cv JSON,
+				picture JSON,
 				is_verified BOOLEAN DEFAULT false,
 				role user_role DEFAULT 'user',
 				created_at TIMESTAMPTZ DEFAULT NOW(),
@@ -114,8 +114,8 @@ module.exports = {
 	 * @param {string} university - the user university
 	 * @param {string} course - the user course
 	 * @param {string} cgpa - the user cgpa
-	 * @param {string} cv - the user cv
-	 * @param {string} picture - the user picture
+	 * @param {json} cv - the user cv
+	 * @param {json} picture - the user picture
 	 * @returns {<promise>} user - the updated user
 	 */
 	updateUser: `
@@ -135,7 +135,7 @@ module.exports = {
 	/**
 	 * @description update a admin details using their id
 	 * @param {string} id - the id of the admin
-	 * @param {string} picture - the picture of the admin
+	 * @param {json} picture - the picture of the admin
 	 * @param {string} first_name - the first name of the admin
 	 * @param {string} last_name - the last name of the admin
 	 * @param {string} email - the email of the admin

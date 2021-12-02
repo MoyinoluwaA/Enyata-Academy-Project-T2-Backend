@@ -5,7 +5,21 @@ exports.assessmentSchema = {
 		batch_id: Joi.number().required(),
 		assessment_test: Joi.array().items(Joi.object().keys({
 			question: Joi.string().required(),
-			image: Joi.string(),
+			image: Joi.object().keys({
+				public_id: Joi.string().required(),
+				original_filename: Joi.string().required(),
+				url: Joi.string().uri({
+					scheme: [
+						/http/,
+					],
+				}).required(),
+				secure_url: Joi.string().uri({
+					scheme: [
+						/https/,
+					],
+				}).required(),
+				format: Joi.string(),
+			}),
 			options: Joi.object().keys({
 				a: Joi.string().required(),
 				b: Joi.string().required(),
