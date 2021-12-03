@@ -1,5 +1,6 @@
+/* eslint-disable camelcase */
 const { makeNewApplication, getApplicantsInBatch, updateApplicantStatus } = require('../services/applicant')
-const { addNewApplication } = require('../services/application')
+const { addNewApplication, getBatchDetails } = require('../services/application')
 const { updateUser } = require('../services/user')
 const { successResponse } = require('../utils/successResponse')
 
@@ -47,8 +48,17 @@ const makeApplication = async (req, res, next) => {
 const getApplication = async (req, res, next) => {
 	try {
 		const { batchId, isApplicant, applicant } = req
+		const details = await getBatchDetails(batchId)
+		const { instructions, start_date } = details
 
-		successResponse(res, `Application ${batchId} is ongoing`, { batchId, isApplicant, applicant }, 200)
+		successResponse(res, `Application ${batchId} is ongoing`, {
+			batchId,
+			isApplicant,
+			applicant,
+			academy: {
+				academy_instruction: instructions, assessment_start_date: start_date,
+			},
+		}, 200)
 	} catch (err) {
 		next(err)
 	}

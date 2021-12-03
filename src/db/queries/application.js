@@ -47,4 +47,11 @@ module.exports = {
         FROM applications 
         WHERE id=(SELECT max(id) FROM applications)
     `,
+
+	getBatchDetails: `
+        SELECT applications.instructions, assessments.start_date
+        FROM applications
+        LEFT JOIN assessments ON applications.id = assessments.batch_id
+        WHERE applications.id=$1
+    `,
 }
