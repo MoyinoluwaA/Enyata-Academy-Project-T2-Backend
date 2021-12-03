@@ -2,7 +2,6 @@ const Joi = require('joi')
 
 exports.assessmentSchema = {
 	schema: Joi.object().keys({
-		batch_id: Joi.number().required(),
 		assessment_test: Joi.array().items(Joi.object().keys({
 			question: Joi.string().required(),
 			image: Joi.object().keys({

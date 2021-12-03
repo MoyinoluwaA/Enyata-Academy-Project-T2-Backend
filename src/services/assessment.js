@@ -3,14 +3,14 @@
 const db = require('../db')
 const { addAssessment, getAssessmentByBatch } = require('../db/queries/assessment')
 
-exports.createAssessments = async (body) => {
+exports.createAssessments = async (batchId, body) => {
 	let {
-		batch_id, assessment_test, start_date, closing_date, time_allotted,
+		assessment_test, start_date, closing_date, time_allotted,
 	} = body
 	assessment_test = JSON.stringify(assessment_test)
 	return db.one(
 		addAssessment,
-		[batch_id, assessment_test, start_date, closing_date, time_allotted],
+		[batchId, assessment_test, start_date, closing_date, time_allotted],
 	)
 }
 

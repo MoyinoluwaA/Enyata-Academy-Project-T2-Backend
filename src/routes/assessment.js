@@ -15,10 +15,12 @@ const router = express.Router()
 
 router
 	.post(
-		'/create',
+		'/create/:batchId',
 		getAuthToken,
 		verifyAuthToken,
 		checkUserRole('admin'),
+		validateInput(batchIdSchema, 'params'),
+		checkAssessmentExists('create'),
 		validateInput(assessmentSchema, 'body'),
 		checkApplicationExists('createAssessment'),
 		validateAssessmentDate,
@@ -33,7 +35,7 @@ router
 		validateInput(applicantIdSchema, 'query'),
 		checkApplicantStatus,
 		validateInput(batchIdSchema, 'params'),
-		checkAssessmentExists,
+		checkAssessmentExists(),
 		getAssessment,
 	)
 
