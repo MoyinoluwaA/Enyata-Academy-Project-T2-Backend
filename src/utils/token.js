@@ -5,7 +5,7 @@ exports.generateToken = async (user, secret, type = 'access') => {
 		{ id: user.id, email: user.email },
 		type === 'access' ? process.env.TOKEN_KEY : secret,
 		{
-			expiresIn: type === 'access' ? '4h' : '1h',
+			expiresIn: type === 'access' ? '7h' : '1h',
 		},
 	)
 	return token
