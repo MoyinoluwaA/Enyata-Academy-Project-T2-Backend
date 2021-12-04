@@ -51,10 +51,10 @@ exports.getApplicantById = async (applicantId) => {
 	return db.oneOrNone(queries.getApplicantById, [applicantId])
 }
 
-exports.addApplicantScore = async (batch_id, body) => {
-	const { applicant_id, assessment_answers, assessment_score } = body
+exports.addApplicantScore = async (batch_id, body, applicantId, assessment_score) => {
+	const { assessment_answers } = body
 	// eslint-disable-next-line max-len
-	return db.oneOrNone(queries.addApplicantScore, [assessment_answers, assessment_score, batch_id, applicant_id])
+	return db.oneOrNone(queries.addApplicantScore, [assessment_answers, assessment_score, batch_id, applicantId])
 }
 
 /**

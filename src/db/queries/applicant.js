@@ -16,7 +16,7 @@ module.exports = {
             batch_id INT NOT NULL,
             user_id INT NOT NULL,
             status application_status DEFAULT 'pending',
-            assessment_answers TEXT[],
+            assessment_answers JSON,
             assessment_score INT,
             created_at TIMESTAMPTZ DEFAULT NOW(),
             updated_at TIMESTAMPTZ DEFAULT NOW(),
