@@ -56,3 +56,12 @@ exports.addApplicantScore = async (batch_id, body) => {
 	// eslint-disable-next-line max-len
 	return db.oneOrNone(queries.addApplicantScore, [assessment_answers, assessment_score, batch_id, applicant_id])
 }
+
+/**
+ * @description - get applicant stats
+ * @param {string} batch_id batch id
+ * @returns {<promise>}	promise object with the result of the query
+ */
+exports.getApplicantsStats = async (batch_id) => {
+	return db.one(queries.getApplicantsStats, [batch_id])
+}

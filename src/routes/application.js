@@ -1,7 +1,7 @@
 const express = require('express')
 const {
 	createApplication, makeApplication, getApplication, getApplicantsByBatchId,
-	updateApplicantsStatus,
+	updateApplicantsStatus, getApplicantStats,
 } = require('../controller/application')
 const validateInput = require('../middleware/validation')
 const {
@@ -42,7 +42,7 @@ router
 		getAuthToken,
 		verifyAuthToken,
 		checkUserRole('user'),
-		getCurrentApplication,
+		getCurrentApplication('user'),
 		checkIfApplicant('status'),
 		getApplication,
 	)
@@ -66,6 +66,15 @@ router
 		checkIfApplicant('updateApplicantStatus'),
 		validateInput(applicantStatusSchema, 'body'),
 		updateApplicantsStatus,
+	)
+
+	.get(
+		'/stats',
+		getAuthToken,
+		verifyAuthToken,
+		checkUserRole('admin'),
+		getCurrentApplication('admin'),
+		getApplicantStats,
 	)
 
 module.exports = router
