@@ -101,4 +101,15 @@ module.exports = {
     WHERE batch_id=$3 AND id=$4
     RETURNING *;
 `,
+
+	/**
+     * @description - get applicants stats
+     * @returns {string} query
+     */
+	getApplicantsStats: `
+        SELECT COUNT(*) as total_applicants,
+        COUNT(CASE WHEN batch_id=$1 THEN 1 END) as total_applicants_in_batch,
+        COUNT(DISTINCT batch_id) as total_batches
+        FROM applicants
+    `,
 }

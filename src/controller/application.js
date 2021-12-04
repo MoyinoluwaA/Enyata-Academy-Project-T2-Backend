@@ -1,5 +1,7 @@
 /* eslint-disable camelcase */
-const { makeNewApplication, getApplicantsInBatch, updateApplicantStatus } = require('../services/applicant')
+const {
+	makeNewApplication, getApplicantsInBatch, updateApplicantStatus, getApplicantsStats,
+} = require('../services/applicant')
 const { addNewApplication, getBatchDetails } = require('../services/application')
 const { updateUser } = require('../services/user')
 const { successResponse } = require('../utils/successResponse')
@@ -98,10 +100,29 @@ const updateApplicantsStatus = async (req, res, next) => {
 	}
 }
 
+/**
+ * @description: Get applicant stats
+ * @param {type} req - request object
+ * @param {type} res - response object
+ * @param {type} next - next function
+ * @returns {object} - response object
+ */
+const getApplicantStats = async (req, res, next) => {
+	try {
+		const { batchId } = req
+		const stats = await getApplicantsStats(batchId)
+
+		successResponse(res, 'Applicant stats fetched successfully', stats, 200)
+	} catch (err) {
+		next(err)
+	}
+}
+
 module.exports = {
 	createApplication,
 	makeApplication,
 	getApplication,
 	getApplicantsByBatchId,
 	updateApplicantsStatus,
+	getApplicantStats,
 }
