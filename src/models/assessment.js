@@ -33,3 +33,10 @@ exports.assessmentSchema = {
 	}),
 	message: 'Error creating assessment',
 }
+
+exports.assessmentResultSchema = {
+	schema: Joi.object().keys({
+		assessment_answers: Joi.object().required(),
+	}),
+	message: 'Error adding applicant scores',
+}

@@ -10,8 +10,8 @@ const { errorResponse } = require('../utils/errorResponse')
    */
 const checkApplicantStatus = async (req, res, next) => {
 	try {
-		const { query: { applicantId }, body: { applicant_id } } = req
-		const applicant = await getApplicantById(applicantId || applicant_id)
+		const { query: { applicantId } } = req
+		const applicant = await getApplicantById(applicantId)
 
 		if (!applicant) {
 			return errorResponse(res, 'Applicant not found', 404)

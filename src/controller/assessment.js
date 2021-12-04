@@ -1,5 +1,5 @@
 const { addApplicantScore } = require('../services/applicant')
-const { createAssessments } = require('../services/assessment')
+const { createAssessments, calculateAssessmentScore } = require('../services/assessment')
 const { successResponse } = require('../utils/successResponse')
 
 exports.createAssessment = async (req, res, next) => {
@@ -25,10 +25,13 @@ exports.getAssessment = async (req, res, next) => {
 
 exports.addAssessmentScore = async (req, res, next) => {
 	try {
-		const { params: { batchId }, body } = req
-		const score = await addApplicantScore(batchId, body)
+		const {
+			params: { batchId }, body, assessment, query: { applicantId },
+		} = req
+		const score = await calculateAssessmentScore(body, assessment)
+		await addApplicantScore(batchId, body, applicantId, score)
 
-		successResponse(res, 'Test scores sent successfully', score, 200)
+		successResponse(res, 'Test scores sent successfully', [], 200)
 	} catch (err) {
 		next(err)
 	}
