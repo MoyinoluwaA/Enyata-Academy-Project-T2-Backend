@@ -28,8 +28,8 @@ const checkIfApplicant = (type = 'apply') => async (req, res, next) => {
 			req.isApplicant = isApplicant
 			req.applicant = applicant
 		} else {
-			const { params: { applicantId }, body: { applicant_id } } = req
-			const applicant = await getApplicantById(applicantId || applicant_id)
+			const { params: { applicantId } } = req
+			const applicant = await getApplicantById(applicantId)
 
 			if (!applicant) {
 				return errorResponse(res, 'Applicant not found', 404)

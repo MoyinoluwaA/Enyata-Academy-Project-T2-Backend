@@ -15,3 +15,16 @@ exports.createAssessments = async (batchId, body) => {
 }
 
 exports.getAssessmentByBatch = async (batchId) => db.oneOrNone(getAssessmentByBatch, batchId)
+
+exports.calculateAssessmentScore = async (body, { assessment_test }) => {
+	const { assessment_answers } = body
+	const applicantScore = assessment_test.reduce((score, currentQuestion, index) => {
+		if (assessment_answers[index + 1] === currentQuestion.answer) {
+			return score + 1
+		}
+		return score
+	}, 0)
+	const numberOfQuestions = assessment_test.length
+	const scoreInPercent = (applicantScore / numberOfQuestions) * 100
+	return scoreInPercent
+}
