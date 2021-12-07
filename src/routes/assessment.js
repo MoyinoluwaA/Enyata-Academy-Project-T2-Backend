@@ -41,7 +41,7 @@ router
 	)
 
 	.get(
-		'/check',
+		'/check/:batchId',
 		getAuthToken,
 		verifyAuthToken,
 		checkUserRole('admin'),
