@@ -46,7 +46,7 @@ router
 		verifyAuthToken,
 		checkUserRole('admin'),
 		validateInput(batchIdSchema, 'params'),
-		checkAssessmentExists(),
+		checkAssessmentExists('create'),
 		getAssessmentStatus,
 	)
 
