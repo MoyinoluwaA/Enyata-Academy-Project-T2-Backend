@@ -63,6 +63,13 @@ router
 		checkUserRole('user'),
 		getUserDetails,
 	)
+	.get(
+		'/admin/details',
+		getAuthToken,
+		verifyAuthToken,
+		checkUserRole('admin'),
+		getUserDetails,
+	)
 	.put(
 		'/admin/update',
 		getAuthToken,
