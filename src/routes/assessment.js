@@ -1,5 +1,7 @@
 const express = require('express')
-const { createAssessment, getAssessment, addAssessmentScore } = require('../controller/assessment')
+const {
+	createAssessment, getAssessment, addAssessmentScore, getAssessmentStatus,
+} = require('../controller/assessment')
 const checkApplicantStatus = require('../middleware/checkApplicantStatus')
 const checkApplicationExists = require('../middleware/checkApplicationExists')
 const checkAssessmentExists = require('../middleware/checkAssessmentExists')
@@ -36,6 +38,16 @@ router
 		validateInput(batchIdSchema, 'params'),
 		checkAssessmentExists(),
 		getAssessment,
+	)
+
+	.get(
+		'/check',
+		getAuthToken,
+		verifyAuthToken,
+		checkUserRole('admin'),
+		validateInput(batchIdSchema, 'params'),
+		checkAssessmentExists(),
+		getAssessmentStatus,
 	)
 
 	.post(

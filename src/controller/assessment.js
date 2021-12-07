@@ -36,3 +36,11 @@ exports.addAssessmentScore = async (req, res, next) => {
 		next(err)
 	}
 }
+
+exports.getAssessmentStatus = async (req, res, next) => {
+	try {
+		successResponse(res, 'Assessment for batch exists', { assessment: true }, 200)
+	} catch (err) {
+		next(err)
+	}
+}
