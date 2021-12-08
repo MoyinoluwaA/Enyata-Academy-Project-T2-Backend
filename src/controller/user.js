@@ -81,14 +81,14 @@ const resetPassword = async (req, res, next) => {
 const getUserDetails = (req, res, next) => {
 	try {
 		const {
-			id, first_name, last_name, email, phone, picture,
+			id, first_name, last_name, email, phone, picture, address, country,
 		} = req.user
 
 		successResponse(
 			res,
 			'User details fetched successfully',
 			{
-				id, first_name, last_name, email, phone, picture,
+				id, first_name, last_name, email, phone, picture, address, country,
 			},
 			200,
 		)
