@@ -48,7 +48,7 @@ module.exports = {
 	`,
 
 	/**
-	* @description Gets assessment for batch from assessment table table
+	* @description Gets assessment for batch from assessment table
 	* @param {string} batch_id - the unique id of a batch(ie application)
 	*/
 	getAssessmentByBatch: `
@@ -56,4 +56,12 @@ module.exports = {
         FROM assessments
         WHERE batch_id=$1
     `,
+
+	/**
+	* @description Get all assessment from assessment table
+	*/
+	getAssessmentHistory: `
+		SELECT *
+		FROM assessments
+	`,
 }

@@ -1,6 +1,6 @@
 const express = require('express')
 const {
-	createAssessment, getAssessment, addAssessmentScore, getAssessmentStatus,
+	createAssessment, getAssessment, addAssessmentScore, getAssessmentStatus, getAssessmentHistory,
 } = require('../controller/assessment')
 const checkApplicantStatus = require('../middleware/checkApplicantStatus')
 const checkApplicationExists = require('../middleware/checkApplicationExists')
@@ -61,6 +61,14 @@ router
 		validateInput(assessmentResultSchema, 'body'),
 		checkAssessmentExists(),
 		addAssessmentScore,
+	)
+
+	.get(
+		'/history',
+		getAuthToken,
+		verifyAuthToken,
+		checkUserRole('admin'),
+		getAssessmentHistory,
 	)
 
 module.exports = router

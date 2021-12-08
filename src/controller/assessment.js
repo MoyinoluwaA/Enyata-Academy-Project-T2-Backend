@@ -1,5 +1,5 @@
 const { addApplicantScore } = require('../services/applicant')
-const { createAssessments, calculateAssessmentScore } = require('../services/assessment')
+const { createAssessments, calculateAssessmentScore, fetchAssessmentHistory } = require('../services/assessment')
 const { successResponse } = require('../utils/successResponse')
 
 exports.createAssessment = async (req, res, next) => {
@@ -40,6 +40,16 @@ exports.addAssessmentScore = async (req, res, next) => {
 exports.getAssessmentStatus = async (req, res, next) => {
 	try {
 		successResponse(res, 'Assessment for batch exists', { assessment: true }, 200)
+	} catch (err) {
+		next(err)
+	}
+}
+
+exports.getAssessmentHistory = async (req, res, next) => {
+	try {
+		const history = await fetchAssessmentHistory()
+
+		successResponse(res, 'Assessment history', history, 200)
 	} catch (err) {
 		next(err)
 	}

@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable camelcase */
 const db = require('../db')
-const { addAssessment, getAssessmentByBatch } = require('../db/queries/assessment')
+const { addAssessment, getAssessmentByBatch, getAssessmentHistory } = require('../db/queries/assessment')
 
 exports.createAssessments = async (batchId, body) => {
 	let {
@@ -28,3 +28,5 @@ exports.calculateAssessmentScore = async (body, { assessment_test }) => {
 	const scoreInPercent = (applicantScore / numberOfQuestions) * 100
 	return scoreInPercent
 }
+
+exports.fetchAssessmentHistory = async () => db.any(getAssessmentHistory)
