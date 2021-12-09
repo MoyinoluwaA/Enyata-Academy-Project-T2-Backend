@@ -54,4 +54,16 @@ module.exports = {
         LEFT JOIN assessments ON applications.id = assessments.batch_id
         WHERE applications.id=$1
     `,
+
+	/**
+     * @description Get application stats
+     * @returns {string} - query
+     */
+	getApplicationStats: `
+        SELECT applications.batch_id, applications.start_date, COUNT(applicants.id) as student_count
+        FROM applications
+        LEFT JOIN applicants ON applications.id = applicants.batch_id
+        GROUP BY applications.id, applicants.batch_id
+        ORDER BY applications.id
+    `,
 }

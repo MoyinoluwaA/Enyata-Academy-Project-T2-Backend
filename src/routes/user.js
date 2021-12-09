@@ -60,14 +60,6 @@ router
 		'/details',
 		getAuthToken,
 		verifyAuthToken,
-		checkUserRole('user'),
-		getUserDetails,
-	)
-	.get(
-		'/admin/details',
-		getAuthToken,
-		verifyAuthToken,
-		checkUserRole('admin'),
 		getUserDetails,
 	)
 	.put(
