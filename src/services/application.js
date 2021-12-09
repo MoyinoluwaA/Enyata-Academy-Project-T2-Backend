@@ -14,3 +14,4 @@ exports.addNewApplication = async (body) => {
 exports.getApplicationById = (batch_id) => db.oneOrNone(queries.getApplicationById, batch_id)
 exports.getLatestApplication = async () => db.oneOrNone(queries.getLastApplication)
 exports.getBatchDetails = async (batch_id) => db.oneOrNone(queries.getBatchDetails, batch_id)
+exports.getApplicationStats = async () => db.any(queries.getApplicationStats)

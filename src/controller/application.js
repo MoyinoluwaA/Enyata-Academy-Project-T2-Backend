@@ -2,7 +2,7 @@
 const {
 	makeNewApplication, getApplicantsInBatch, updateApplicantStatus, getApplicantsStats,
 } = require('../services/applicant')
-const { addNewApplication, getBatchDetails } = require('../services/application')
+const { addNewApplication, getBatchDetails, getApplicationStats } = require('../services/application')
 const { updateUser } = require('../services/user')
 const { successResponse } = require('../utils/successResponse')
 
@@ -110,9 +110,10 @@ const updateApplicantsStatus = async (req, res, next) => {
 const getApplicantStats = async (req, res, next) => {
 	try {
 		const { batchId } = req
-		const stats = await getApplicantsStats(batchId)
+		const applicantStat = await getApplicantsStats(batchId)
+		const applicationStats = await getApplicationStats()
 
-		successResponse(res, 'Applicant stats fetched successfully', stats, 200)
+		successResponse(res, 'Applicant stats fetched successfully', { ...applicantStat, applicationStats }, 200)
 	} catch (err) {
 		next(err)
 	}
