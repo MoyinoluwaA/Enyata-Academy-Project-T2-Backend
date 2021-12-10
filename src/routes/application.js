@@ -76,5 +76,10 @@ router
 		getCurrentApplication('admin'),
 		getApplicantStats,
 	)
+	.get(
+		'/status/applications',
+		getCurrentApplication('user'),
+		getApplication,
+	)
 
 module.exports = router
