@@ -12,6 +12,7 @@ const checkUserRole = require('../middleware/checkUserRole')
 const checkApplicationExists = require('../middleware/checkApplicationExists')
 const checkIfApplicant = require('../middleware/checkIfApplicant')
 const getCurrentApplication = require('../middleware/getCurrentApplication')
+const checkCurrentApplicationEndDate = require('../middleware/checkCurrentApplicationEndDate')
 
 const router = express.Router()
 
@@ -23,6 +24,7 @@ router
 		checkUserRole('admin'),
 		validateInput(applicationSchema, 'body'),
 		checkApplicationExists(),
+		checkCurrentApplicationEndDate,
 		createApplication,
 	)
 
